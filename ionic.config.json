@@ -1,0 +1,8 @@
+{
+  "name": "Anime Chan",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "be17b196"
+}
