@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Anime</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Search by name"
+      (ionChange)="onSearchChange($event)"
+      [debounce]="500"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-spinner name="dots" *ngIf="searchResults.length === 0"></ion-spinner> -->
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" *ngFor="let result of searchResults">
+        <ion-card routerLink="/anime/{{result.mal_id}}">
+          <ion-img [src]="result.images.webp.large_image_url"></ion-img>
+
+          <ion-card-header>
+            <ion-card-subtitle *ngFor="let genre of result.genres">
+              <ion-badge>{{genre.name}}</ion-badge>
+            </ion-card-subtitle>
+            <ion-card-title>{{result.title}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{result.synopsis === null ? "No description provided" :
+            result.synopsis.substring(0, 120) + "..." }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

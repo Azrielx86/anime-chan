@@ -1,16 +1,35 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AnimePage } from './anime/anime.page';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'folder/Inbox',
+  //   pathMatch: 'full'
+  // },
   {
+    //! Cambiar
     path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    // redirectTo: 'anime/32380'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  }
+  },
+  {
+    path: 'anime/:id',
+    loadChildren: () => import('./anime/anime.module').then( m => m.AnimePageModule)
+  },
+  {
+    path: 'search-anime',
+    loadChildren: () => import('./search-anime/search-anime.module').then( m => m.SearchAnimePageModule)
+  },
 ];
 
 @NgModule({

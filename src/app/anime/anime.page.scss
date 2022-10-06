@@ -1,0 +1,38 @@
+ion-header {
+  // display: inline-block;
+  // width: 100%;
+  // white-space: nowrap;
+  // overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+div.img-header {
+  height: 10em;
+  overflow: hidden;
+}
+
+div.img-header ion-img {
+  background-size: cover;
+  object-fit: cover;
+  display: block;
+  z-index: -5;
+}
+
+// TODO
+div.img-header ion-img::after {
+  position: absolute;
+  top: 56px;
+  right: 0px;
+  content: "Work in progress";
+  background-color: rgba(0, 0, 0, 0.61);
+  height: 10em;
+  width: 100%;
+  z-index: 0;
+}
+
+div.img-header h1 {
+  position: fixed;
+  color: whitesmoke;
+  z-index: 5;
+  
+}

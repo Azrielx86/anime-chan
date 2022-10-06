@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title *ngIf="anime !== undefined">{{ anime.title }}</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="anime !== undefined">
+    <div class="img-header">
+      <h1>{{anime.title}}</h1>
+      <ion-img [src]="anime.images.webp.large_image_url"></ion-img>
+    </div>
+    <div>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col> Score: {{anime.score}} </ion-col>
+          <ion-col> Range: {{anime.rank}} </ion-col>
+          <ion-col> Popularity: {{anime.popularity}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Season: {{anime.season}}</ion-col>
+          <ion-col>Status: {{anime.status}}</ion-col>
+          <ion-col>Episodes: {{anime.episodes}}</ion-col>
+        </ion-row>
+      </ion-grid>
+      <div>
+        {{anime.synopsis}}
+      </div>
+    </div>
+  </div>
+</ion-content>
