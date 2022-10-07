@@ -9,26 +9,69 @@
 
 <ion-content [fullscreen]="true">
   <div *ngIf="anime !== undefined">
-    <div class="img-header">
-      <h1>{{anime.title}}</h1>
-      <ion-img [src]="anime.images.webp.large_image_url"></ion-img>
+    <div class="header">
+      <div class="center-img">
+        <ion-img
+          class="bg-img"
+          [src]="anime.images.webp.large_image_url"
+        ></ion-img>
+      </div>
+      <div class="header-info">
+        <div class="prev-container">
+          <ion-img
+            class="prev-img"
+            [src]="anime.images.webp.large_image_url"
+          ></ion-img>
+        </div>
+        <div class="prev-info">
+          <div>
+            <h3>{{anime.title}}</h3>
+            <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col> Score: {{anime.score}} </ion-col>
-          <ion-col> Range: {{anime.rank}} </ion-col>
-          <ion-col> Popularity: {{anime.popularity}} </ion-col>
-        </ion-row>
+      <ion-card>
+        <ion-card-content>
+          <ion-grid fixed>
+            <ion-row>
+              <!-- <ion-col>Score: {{anime.score}} </ion-col> -->
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Score</h3>
+                  <h4>{{anime.score}}</h4>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Rank</h3>
+                  <h4>{{anime.rank}}</h4>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Popularity</h3>
+                  <h4>{{anime.popularity}}</h4>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
         <ion-row>
           <ion-col>Season: {{anime.season}}</ion-col>
           <ion-col>Status: {{anime.status}}</ion-col>
           <ion-col>Episodes: {{anime.episodes}}</ion-col>
         </ion-row>
-      </ion-grid>
-      <div>
-        {{anime.synopsis}}
-      </div>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <div>{{anime.synopsis}}</div>
+        </ion-card-content>
+      </ion-card>
     </div>
   </div>
 </ion-content>
