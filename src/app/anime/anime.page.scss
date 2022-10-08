@@ -1,4 +1,5 @@
-$top-header-height: 12em;
+$top-header-height: 12.4em;
+$genre-color-item: #6a62fa;
 
 ion-header {
   text-overflow: ellipsis;
@@ -43,7 +44,11 @@ div.header-info {
 
   div.prev-info {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
 
     h3 {
       font-size: larger;
@@ -60,11 +65,19 @@ div.header-info {
     h5 {
       font-size: smaller;
       text-shadow: 0em 0em 0.3em rgba(0, 0, 0, 0.8);
+      padding: 0;
+      margin: 0.1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 1.2em;
+      word-wrap: break-word;
     }
-
+    
     h6 {
       font-size: medium;
       text-shadow: 0em 0em 0.3em rgba(0, 0, 0, 0.8);
+      padding: 0;
+      margin: 0.1em;
     }
 
     div.sub-info {
@@ -124,4 +137,19 @@ div.stats-info {
 div.synopsis {
   max-height: $top-header-height;
   overflow-y: scroll;
+}
+
+div.genres-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  div.genre-item {
+    font-weight: bold;
+    font-size: small;
+    display: inline;
+    background-color: $genre-color-item;
+    padding: 0.25em;
+    border-radius: 0.3em;
+    margin: 0.2em;
+  }
 }

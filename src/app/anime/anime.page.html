@@ -34,10 +34,10 @@
           </div>
         </div>
         <div class="prev-info">
-          <div>
+          <!-- <div> -->
             <h3>{{anime.title}}</h3>
             <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
-            <!-- <div class="sub-info"> -->
+
             <h6 *ngIf="anime.season !== null">
               Season: {{anime.season.charAt(0).toUpperCase() +
               anime.season.slice(1)}} {{anime.year}}
@@ -45,8 +45,12 @@
             <h6 *ngIf="anime.episodes !== null">
               Episodes: {{anime.episodes}}
             </h6>
-            <!-- </div> -->
-          </div>
+            <div class="genres-container">
+              <div *ngFor="let genre of anime.genres" class="genre-item">
+                <span>{{genre.name}}</span>
+              </div>
+            </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
