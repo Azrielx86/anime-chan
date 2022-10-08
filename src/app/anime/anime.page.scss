@@ -120,3 +120,8 @@ div.stats-info {
     font-size: medium;
   }
 }
+
+div.synopsis {
+  max-height: $top-header-height;
+  overflow-y: scroll;
+}

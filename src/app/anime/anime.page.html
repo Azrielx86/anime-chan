@@ -38,8 +38,13 @@
             <h3>{{anime.title}}</h3>
             <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
             <!-- <div class="sub-info"> -->
-            <h6 *ngIf="anime.season !== null">Season: {{anime.season}}</h6>
-            <h6>Episodes: {{anime.episodes}}</h6>
+            <h6 *ngIf="anime.season !== null">
+              Season: {{anime.season.charAt(0).toUpperCase() +
+              anime.season.slice(1)}} {{anime.year}}
+            </h6>
+            <h6 *ngIf="anime.episodes !== null">
+              Episodes: {{anime.episodes}}
+            </h6>
             <!-- </div> -->
           </div>
         </div>
@@ -55,19 +60,21 @@
               <ion-col>
                 <div class="stats-info">
                   <h3>Score</h3>
-                  <h4>{{anime.score}}</h4>
+                  <h4>{{anime.score !== null ? anime.score : "NA"}}</h4>
                 </div>
               </ion-col>
               <ion-col>
                 <div class="stats-info">
                   <h3>Rank</h3>
-                  <h4>{{anime.rank}}</h4>
+                  <h4>{{anime.rank !== null ? anime.rank : "NA"}}</h4>
                 </div>
               </ion-col>
               <ion-col>
                 <div class="stats-info">
                   <h3>Popularity</h3>
-                  <h4>{{anime.popularity}}</h4>
+                  <h4>
+                    {{anime.popularity !== null ? anime.popularity : "NA"}}
+                  </h4>
                 </div>
               </ion-col>
             </ion-row>
@@ -75,8 +82,41 @@
         </ion-card-content>
       </ion-card>
       <ion-card>
+        <ion-card-header>
+          <ion-card-title>Description</ion-card-title>
+        </ion-card-header>
         <ion-card-content>
-          <div>{{anime.synopsis}}</div>
+          <div class="synopsis">{{anime.synopsis}}</div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngIf="anime.trailer.youtube_id !== null">
+        <ion-card-header>
+          <ion-card-title>Trailer</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div style="text-align: center">
+            <youtube-player
+              [videoId]="anime.trailer.youtube_id"
+              [width]="windowWidth * 0.80"
+              [height]="windowWidth * 0.80 * 0.56"
+            ></youtube-player>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <p>Season: {{anime.season}} {{anime.year}}</p>
+          <p>Source: {{anime.source}}</p>
+          <p>
+            Studios:
+            <span *ngFor="let studio of anime.studios">{{studio.name}} </span>
+          </p>
+          <p>Rating: {{anime.rating}}</p>
+          <p>Aired: {{anime.aired.string}}</p>
+          <p>
+            Licensor:
+            <span *ngFor="let lic of anime.licensors">{{lic.name}} </span>
+          </p>
         </ion-card-content>
       </ion-card>
     </div>
