@@ -22,11 +22,25 @@
             class="prev-img"
             [src]="anime.images.webp.large_image_url"
           ></ion-img>
+          <div class="status-container">
+            <div
+              class="status"
+              [style.background-color]="anime.status === 'Finished Airing'? '#eb445a' : 
+              anime.status === 'Currently Airing' ? '#2dd36f' : '#f4f5f8'"
+              [style.color]="anime.status === 'Finished Airing'? '#ffffff' : '#000000'"
+            >
+              {{anime.status}}
+            </div>
+          </div>
         </div>
         <div class="prev-info">
           <div>
             <h3>{{anime.title}}</h3>
             <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
+            <!-- <div class="sub-info"> -->
+            <h6 *ngIf="anime.season !== null">Season: {{anime.season}}</h6>
+            <h6>Episodes: {{anime.episodes}}</h6>
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -59,13 +73,6 @@
             </ion-row>
           </ion-grid>
         </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <ion-row>
-          <ion-col>Season: {{anime.season}}</ion-col>
-          <ion-col>Status: {{anime.status}}</ion-col>
-          <ion-col>Episodes: {{anime.episodes}}</ion-col>
-        </ion-row>
       </ion-card>
       <ion-card>
         <ion-card-content>

@@ -22,7 +22,7 @@ export class AnimePage implements OnInit {
     this.anime = await this.marikaService
       .getAnime(this.animeId)
       .then((result) => (this.anime = result))
-    .catch();
+      .catch();
 
     console.log(this.anime);
   }
