@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IAnime } from '@shineiichijo/marika';
+import {
+  IAnime,
+  IAnimeCharacters,
+  IAnimeEpisodes,
+  IAnimeFull,
+  IAnimePictures,
+  IAnimeStats,
+} from '@shineiichijo/marika';
 import { MarikaService } from '../api/marika.service';
-import { YouTubePlayer } from '@angular/youtube-player';
 
 @Component({
   selector: 'app-anime',
@@ -10,9 +16,13 @@ import { YouTubePlayer } from '@angular/youtube-player';
   styleUrls: ['./anime.page.scss'],
 })
 export class AnimePage implements OnInit {
-  public anime: IAnime;
+  public anime: IAnimeFull;
+  public characters: IAnimeCharacters;
+  public pictures: IAnimePictures;
+  public stats: IAnimeStats;
+  public episodes: IAnimeEpisodes;
   public windowWidth = window.innerWidth;
-  private animeId: string;
+  private animeId: number;
   private apiLoaded = false;
 
   constructor(
@@ -28,12 +38,17 @@ export class AnimePage implements OnInit {
       this.apiLoaded = true;
     }
 
-    this.animeId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.anime = await this.marikaService
-      .getAnime(this.animeId)
-      .then((result) => (this.anime = result))
-      .catch();
+    this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.anime = await this.marikaService.getAnime(this.animeId);
+    this.characters = await this.marikaService.getAnimeCharacters(this.animeId);
+    this.pictures = await this.marikaService.getAnimePictures(this.animeId);
+    this.stats = await this.marikaService.getAnimeStats(this.animeId);
+    this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
 
     console.log(this.anime);
+    console.log(this.characters);
+    console.log(this.pictures);
+    console.log(this.episodes);
+    console.log(this.stats);
   }
 }

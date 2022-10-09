@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Anime, Character, IAnime, Manga } from '@shineiichijo/marika';
+import {
+  Anime,
+  Character,
+  IAnime,
+  IAnimeCharacters,
+  IAnimeEpisodes,
+  IAnimeFull,
+  IAnimePictures,
+  IAnimeStats,
+  Manga,
+} from '@shineiichijo/marika';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +31,23 @@ export class MarikaService {
     return animeList;
   }
 
-  public async getAnime(id: string): Promise<IAnime> {
-    return await this.animeClient.getAnimeById(Number(id));
+  public async getAnime(id: number): Promise<IAnimeFull> {
+    return await this.animeClient.getAnimeFullById(id);
+  }
+
+  public async getAnimeCharacters(id: number): Promise<IAnimeCharacters> {
+    return await this.animeClient.getAnimeCharacters(id);
+  }
+
+  public async getAnimeStats(id: number): Promise<IAnimeStats> {
+    return await this.animeClient.getAnimeStats(id);
+  }
+
+  public async getAnimeEpisodes(id: number): Promise<IAnimeEpisodes> {
+    return await this.animeClient.getAnimeEpisodes(id);
+  }
+
+  public async getAnimePictures(id: number): Promise<IAnimePictures> {
+    return await this.animeClient.getAnimePictures(id);
   }
 }

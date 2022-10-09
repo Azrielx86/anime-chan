@@ -35,21 +35,19 @@
         </div>
         <div class="prev-info">
           <!-- <div> -->
-            <h3>{{anime.title}}</h3>
-            <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
+          <h3>{{anime.title}}</h3>
+          <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
 
-            <h6 *ngIf="anime.season !== null">
+          <!-- <h6 *ngIf="anime.season !== null">
               Season: {{anime.season.charAt(0).toUpperCase() +
               anime.season.slice(1)}} {{anime.year}}
-            </h6>
-            <h6 *ngIf="anime.episodes !== null">
-              Episodes: {{anime.episodes}}
-            </h6>
-            <div class="genres-container">
-              <div *ngFor="let genre of anime.genres" class="genre-item">
-                <span>{{genre.name}}</span>
-              </div>
+            </h6> -->
+          <h6 *ngIf="anime.episodes !== null">Episodes: {{anime.episodes}}</h6>
+          <div class="genres-container">
+            <div *ngFor="let genre of anime.genres" class="genre-item">
+              <span>{{genre.name}}</span>
             </div>
+          </div>
           <!-- </div> -->
         </div>
       </div>
@@ -93,6 +91,7 @@
           <div class="synopsis">{{anime.synopsis}}</div>
         </ion-card-content>
       </ion-card>
+
       <ion-card *ngIf="anime.trailer.youtube_id !== null">
         <ion-card-header>
           <ion-card-title>Trailer</ion-card-title>
@@ -107,9 +106,75 @@
           </div>
         </ion-card-content>
       </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Stats</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="stats !== undefined">
+            <p>Watching: {{stats.watching}}</p>
+            <p>Completed: {{stats.completed}}</p>
+            <p>Dropped: {{stats.dropped}}</p>
+            <p>On Hold: {{stats.on_hold}}</p>
+            <p>Plan To Watch: {{stats.plan_to_watch}}</p>
+            <p>Total: {{stats.total}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Themes</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div>
+            <h2>Openings</h2>
+            <ul>
+              <li *ngFor="let op of anime.theme.openings">{{op}}</li>
+            </ul>
+            <h2>Endings</h2>
+            <ul>
+              <li *ngFor="let ed of anime.theme.endings">{{ed}}</li>
+            </ul>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- TODO -->
+      <!-- <ion-card>
+        <ion-card-header>
+          <ion-card-title>Characters</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="characters !== undefined" class="characters">
+            <div *ngFor="let character of characters.data" class="character">
+              <div class="anime-character">
+                <div>
+                  <ion-img
+                    [src]="character.character.images.webp.image_url"
+                  ></ion-img>
+                </div>
+              </div>
+              <div
+                *ngIf="character.voice_actors[0] !== undefined"
+                class="anime-character"
+              >
+                <ion-img
+                  [src]="character.voice_actors[0].person.images.jpg.image_url"
+                ></ion-img>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card> -->
+
       <ion-card>
         <ion-card-content>
-          <p>Season: {{anime.season}} {{anime.year}}</p>
+          <p>
+            Season: {{anime.season.charAt(0).toUpperCase() +
+            anime.season.slice(1)}} {{anime.year}}
+          </p>
           <p>Source: {{anime.source}}</p>
           <p>
             Studios:
