@@ -8,6 +8,7 @@ import {
   IAnimePictures,
   IAnimeStats,
 } from '@shineiichijo/marika';
+import { EChartsOption } from 'echarts';
 import { MarikaService } from '../api/marika.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class AnimePage implements OnInit {
   public stats: IAnimeStats;
   public episodes: IAnimeEpisodes;
   public windowWidth = window.innerWidth;
+  public chartOption: EChartsOption;
   private animeId: number;
   private apiLoaded = false;
 
@@ -44,6 +46,57 @@ export class AnimePage implements OnInit {
     this.pictures = await this.marikaService.getAnimePictures(this.animeId);
     this.stats = await this.marikaService.getAnimeStats(this.animeId);
     this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
+
+    const xData = [
+      { value: this.stats.completed, name: 'Completed' },
+      { value: this.stats.watching, name: 'Watching' },
+      { value: this.stats.on_hold, name: 'On Hold' },
+      { value: this.stats.dropped, name: 'Dropped' },
+      { value: this.stats.plan_to_watch, name: 'Plan to Watch' },
+    ];
+
+    const yData = [
+      'Completed',
+      'Watching',
+      'On Hold',
+      'Dropped',
+      'Plan to Watch',
+    ];
+
+    if (this.stats !== undefined) {
+      this.chartOption = {
+        title: {
+          text: 'Anime stats',
+          subtext: 'Click for more info!',
+          textStyle: {
+            color: '#ffffff',
+            fontSize: 16,
+          },
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b} : {c} ({d}%)',
+        },
+        legend: {
+          align: 'auto',
+          bottom: 0,
+          data: yData,
+          textStyle: {
+            color: '#ffffff',
+          },
+        },
+        calculable: true,
+        series: [
+          {
+            type: 'pie',
+            label: {
+              show: false,
+            },
+            data: xData,
+          },
+        ],
+      };
+    }
 
     console.log(this.anime);
     console.log(this.characters);

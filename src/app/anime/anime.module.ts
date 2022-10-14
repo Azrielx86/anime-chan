@@ -8,6 +8,7 @@ import { AnimePageRoutingModule } from './anime-routing.module';
 
 import { AnimePage } from './anime.page';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     FormsModule,
     IonicModule,
     AnimePageRoutingModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    NgxEchartsModule.forChild()
   ],
   declarations: [AnimePage]
 })

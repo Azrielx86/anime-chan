@@ -28,7 +28,9 @@
     "@capacitor/status-bar": "4.0.1",
     "@ionic/angular": "^6.3.0",
     "@shineiichijo/marika": "^2.0.5",
+    "echarts": "^5.4.0",
     "ionicons": "^6.0.3",
+    "ngx-echarts": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

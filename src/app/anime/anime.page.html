@@ -83,6 +83,7 @@
           </ion-grid>
         </ion-card-content>
       </ion-card>
+
       <ion-card>
         <ion-card-header>
           <ion-card-title>Description</ion-card-title>
@@ -107,11 +108,13 @@
         </ion-card-content>
       </ion-card>
 
-      <ion-card>
+      <ion-card *ngIf="stats !== undefined">
         <ion-card-header>
           <ion-card-title>Stats</ion-card-title>
         </ion-card-header>
         <ion-card-content>
+          <div echarts [options]="chartOption" style="height: 400px"></div>
+          <br />
           <div *ngIf="stats !== undefined">
             <p>Watching: {{stats.watching}}</p>
             <p>Completed: {{stats.completed}}</p>
@@ -171,7 +174,7 @@
 
       <ion-card>
         <ion-card-content>
-          <p>
+          <p *ngIf="anime.season !== null">
             Season: {{anime.season.charAt(0).toUpperCase() +
             anime.season.slice(1)}} {{anime.year}}
           </p>
