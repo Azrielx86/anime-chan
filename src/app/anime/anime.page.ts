@@ -23,7 +23,9 @@ export class AnimePage implements OnInit {
   public stats: IAnimeStats;
   public episodes: IAnimeEpisodes;
   public windowWidth = window.innerWidth;
-  public chartOption: EChartsOption;
+  public statsChartOption: EChartsOption;
+  public scoreChartOption: EChartsOption;
+  public initOpts: any;
   private animeId: number;
   private apiLoaded = false;
 
@@ -42,10 +44,10 @@ export class AnimePage implements OnInit {
 
     this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.anime = await this.marikaService.getAnime(this.animeId);
-    this.characters = await this.marikaService.getAnimeCharacters(this.animeId);
-    this.pictures = await this.marikaService.getAnimePictures(this.animeId);
     this.stats = await this.marikaService.getAnimeStats(this.animeId);
-    this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
+    // this.characters = await this.marikaService.getAnimeCharacters(this.animeId);
+    // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
+    // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId)
 
     const xData = [
       { value: this.stats.completed, name: 'Completed' },
@@ -64,7 +66,11 @@ export class AnimePage implements OnInit {
     ];
 
     if (this.stats !== undefined) {
-      this.chartOption = {
+      this.initOpts = {
+        renderer: 'svg',
+      };
+
+      this.statsChartOption = {
         title: {
           text: 'Anime stats',
           subtext: 'Click for more info!',
@@ -97,6 +103,52 @@ export class AnimePage implements OnInit {
         ],
       };
     }
+
+    this.scoreChartOption = {
+      title: {
+        text: 'Anime scores',
+        subtext: 'Click for more info!',
+        textStyle: {
+          color: '#ffffff',
+          fontSize: 16,
+        },
+      },
+      color: ['#3398DB'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+          axisTick: {
+            alignWithLabel: true,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          name: 'Counters',
+          type: 'bar',
+          barWidth: '60%',
+          data: this.stats.scores.map(score => score.votes),
+        },
+      ],
+    };
 
     console.log(this.anime);
     console.log(this.characters);

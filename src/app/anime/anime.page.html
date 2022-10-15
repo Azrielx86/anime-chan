@@ -113,7 +113,7 @@
           <ion-card-title>Stats</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div echarts [options]="chartOption" style="height: 400px"></div>
+          <div echarts [options]="statsChartOption" [initOpts]="initOpts" style="height: 400px"></div>
           <br />
           <div *ngIf="stats !== undefined">
             <p>Watching: {{stats.watching}}</p>
@@ -121,7 +121,20 @@
             <p>Dropped: {{stats.dropped}}</p>
             <p>On Hold: {{stats.on_hold}}</p>
             <p>Plan To Watch: {{stats.plan_to_watch}}</p>
-            <p>Total: {{stats.total}}</p>
+            <p >Total: {{stats.total}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="stats !== undefined">
+        <ion-card-header>
+          <ion-card-title>Scores</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div echarts [options]="scoreChartOption" [initOpts]="initOpts" style="height: 200px;"></div>
+          <br/>
+          <div>
+            <p *ngIf="stats.total !== undefined">Total: {{stats.total}}</p>
           </div>
         </ion-card-content>
       </ion-card>
