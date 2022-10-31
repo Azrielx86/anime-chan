@@ -8,6 +8,7 @@ import {
   IAnimeFull,
   IAnimePictures,
   IAnimeStats,
+  ITopAnime,
   Manga,
 } from '@shineiichijo/marika';
 
@@ -19,16 +20,20 @@ export class MarikaService {
   characterClient = new Character();
   mangaClient = new Manga();
 
-  constructor() {}
+  constructor() { }
 
   public async searchAnime(query: string): Promise<IAnime[]> {
     const animeList = await this.animeClient
-      .searchAnime(query)
+      .searchAnime(query, { sort: 'desc', sfw: true })
       .then((result) => result.data)
       .catch();
     console.log(animeList);
 
     return animeList;
+  }
+
+  public async getTopAnime(): Promise<ITopAnime> {
+    return await this.animeClient.getTopAnime();
   }
 
   public async getAnime(id: number): Promise<IAnimeFull> {

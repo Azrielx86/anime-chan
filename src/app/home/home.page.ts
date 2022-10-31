@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IAnime, ITopAnime } from '@shineiichijo/marika';
+import { MarikaService } from '../api/marika.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  public topAnime: ITopAnime;
+  public animeList: IAnime[];
+  public page = 1;
 
-  constructor() { }
+  constructor(private marikaService: MarikaService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.topAnime = await this.marikaService.getTopAnime();
+    this.animeList = this.topAnime.data;
   }
-
 }

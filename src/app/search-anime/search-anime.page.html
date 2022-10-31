@@ -9,7 +9,7 @@
     <ion-searchbar
       placeholder="Search by name"
       (ionChange)="onSearchChange($event)"
-      [debounce]="500"
+      [debounce]="1000"
     ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -23,8 +23,13 @@
           <ion-img [src]="result.images.webp.large_image_url"></ion-img>
 
           <ion-card-header>
-            <ion-card-subtitle *ngFor="let genre of result.genres">
-              <ion-badge>{{genre.name}}</ion-badge>
+            <ion-card-subtitle *ngIf="result.genres !== undefined">
+              <div class="genres-container">
+                <div *ngFor="let genre of result.genres" class="genre-item">
+                  <span>{{genre.name}}</span>
+                </div>
+              </div>
+              <!-- <ion-badge>{{genre.name}}</ion-badge> -->
             </ion-card-subtitle>
             <ion-card-title>{{result.title}}</ion-card-title>
           </ion-card-header>
