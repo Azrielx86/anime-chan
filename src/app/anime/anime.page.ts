@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import {
   IAnime,
   IAnimeCharacters,
@@ -28,10 +29,12 @@ export class AnimePage implements OnInit {
   public initOpts: any;
   private animeId: number;
   private apiLoaded = false;
+  private synopsisExpanded = false;
 
   constructor(
     private marikaService: MarikaService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private alertController: AlertController
   ) {}
 
   async ngOnInit() {
@@ -42,12 +45,24 @@ export class AnimePage implements OnInit {
       this.apiLoaded = true;
     }
 
-    this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.anime = await this.marikaService.getAnime(this.animeId);
-    this.stats = await this.marikaService.getAnimeStats(this.animeId);
-    // this.characters = await this.marikaService.getAnimeCharacters(this.animeId);
-    // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
-    // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId)
+    try {
+      this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+      this.anime = await this.marikaService.getAnime(this.animeId);
+      this.stats = await this.marikaService.getAnimeStats(this.animeId);
+      this.characters = await this.marikaService.getAnimeCharacters(
+        this.animeId
+      );
+      // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
+      // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: error,
+        buttons: ['Close'],
+      });
+
+      await alert.present();
+    }
 
     const xData = [
       { value: this.stats.completed, name: 'Completed' },
@@ -145,7 +160,7 @@ export class AnimePage implements OnInit {
           name: 'Counters',
           type: 'bar',
           barWidth: '60%',
-          data: this.stats.scores.map(score => score.votes),
+          data: this.stats.scores.map((score) => score.votes),
         },
       ],
     };
@@ -156,4 +171,27 @@ export class AnimePage implements OnInit {
     console.log(this.episodes);
     console.log(this.stats);
   }
+
+  /**
+   * TODO: Remove later or use to other action.
+   * @param characterVA Character voice actor
+   */
+  showVoiceActors = async (characterVA) => {
+    let names = characterVA.map((va) => `${va.person.name} (${va.language})`);
+
+    const alert = await this.alertController.create({
+      header: 'Voice Actors',
+      message: `${names}`,
+      buttons: ['Close'],
+    });
+
+    await alert.present();
+  };
+
+  expandSynopsis = async () => {
+    document.getElementById('synopsis').style.maxHeight = this.synopsisExpanded
+      ? '12.4rem'
+      : '100%';
+    this.synopsisExpanded = !this.synopsisExpanded;
+  };
 }

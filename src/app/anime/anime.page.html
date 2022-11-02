@@ -11,44 +11,28 @@
   <div *ngIf="anime !== undefined">
     <div class="header">
       <div class="center-img">
-        <ion-img
-          class="bg-img"
-          [src]="anime.images.webp.large_image_url"
-        ></ion-img>
+        <ion-img class="bg-img" [src]="anime.images.webp.large_image_url"></ion-img>
       </div>
       <div class="header-info">
         <div class="prev-container">
-          <ion-img
-            class="prev-img"
-            [src]="anime.images.webp.large_image_url"
-          ></ion-img>
+          <ion-img class="prev-img" [src]="anime.images.webp.large_image_url"></ion-img>
           <div class="status-container">
-            <div
-              class="status"
-              [style.background-color]="anime.status === 'Finished Airing'? '#eb445a' : 
+            <div class="status" [style.background-color]="anime.status === 'Finished Airing'? '#eb445a' : 
               anime.status === 'Currently Airing' ? '#2dd36f' : '#f4f5f8'"
-              [style.color]="anime.status === 'Finished Airing'? '#ffffff' : '#000000'"
-            >
+              [style.color]="anime.status === 'Finished Airing'? '#ffffff' : '#000000'">
               {{anime.status}}
             </div>
           </div>
         </div>
         <div class="prev-info">
-          <!-- <div> -->
           <h3>{{anime.title}}</h3>
           <h5 *ngIf="anime.title_japanese">{{anime.title_japanese}}</h5>
-
-          <!-- <h6 *ngIf="anime.season !== null">
-              Season: {{anime.season.charAt(0).toUpperCase() +
-              anime.season.slice(1)}} {{anime.year}}
-            </h6> -->
           <h6 *ngIf="anime.episodes !== null">Episodes: {{anime.episodes}}</h6>
           <div class="genres-container">
             <div *ngFor="let genre of anime.genres" class="genre-item">
               <span>{{genre.name}}</span>
             </div>
           </div>
-          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -58,7 +42,6 @@
         <ion-card-content>
           <ion-grid fixed>
             <ion-row>
-              <!-- <ion-col>Score: {{anime.score}} </ion-col> -->
               <ion-col>
                 <div class="stats-info">
                   <h3>Score</h3>
@@ -89,7 +72,7 @@
           <ion-card-title>Description</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div class="synopsis">{{anime.synopsis}}</div>
+          <div class="synopsis" id="synopsis" (click)="expandSynopsis()">{{anime.synopsis}}</div>
         </ion-card-content>
       </ion-card>
 
@@ -99,11 +82,8 @@
         </ion-card-header>
         <ion-card-content>
           <div style="text-align: center">
-            <youtube-player
-              [videoId]="anime.trailer.youtube_id"
-              [width]="windowWidth * 0.80"
-              [height]="windowWidth * 0.80 * 0.56"
-            ></youtube-player>
+            <youtube-player [videoId]="anime.trailer.youtube_id" [width]="windowWidth * 0.80"
+              [height]="windowWidth * 0.80 * 0.56"></youtube-player>
           </div>
         </ion-card-content>
       </ion-card>
@@ -121,7 +101,7 @@
             <p>Dropped: {{stats.dropped}}</p>
             <p>On Hold: {{stats.on_hold}}</p>
             <p>Plan To Watch: {{stats.plan_to_watch}}</p>
-            <p >Total: {{stats.total}}</p>
+            <p>Total: {{stats.total}}</p>
           </div>
         </ion-card-content>
       </ion-card>
@@ -132,9 +112,44 @@
         </ion-card-header>
         <ion-card-content>
           <div echarts [options]="scoreChartOption" [initOpts]="initOpts" style="height: 200px;"></div>
-          <br/>
+          <br />
           <div>
             <p *ngIf="stats.total !== undefined">Total: {{stats.total}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Characters</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="characters-container">
+            <div class="characters-list">
+              <div *ngFor="let ch of characters.data" class="character-data">
+                <div (click)="showVoiceActors(ch.voice_actors)">
+                  <div class="ch-img-container">
+                    <img class="ch-img" [src]="ch.character.images.webp.image_url" [alt]="ch.character.name">
+                  </div>
+                  <div class="name">
+                    <div class="name-container">
+                      <p>{{ch.character.name}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="ch-img-container">
+                    <img class="ch-img" *ngIf="ch.voice_actors[0] !== undefined"
+                      [src]="ch.voice_actors[0].person.images.jpg.image_url" [alt]="ch.voice_actors[0].person.name">
+                  </div>
+                  <div class="name">
+                    <div class="name-container">
+                      <p *ngIf="ch.voice_actors[0] !== undefined">{{ch.voice_actors[0].person.name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </ion-card-content>
       </ion-card>
@@ -156,34 +171,6 @@
           </div>
         </ion-card-content>
       </ion-card>
-
-      <!-- TODO -->
-      <!-- <ion-card>
-        <ion-card-header>
-          <ion-card-title>Characters</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <div *ngIf="characters !== undefined" class="characters">
-            <div *ngFor="let character of characters.data" class="character">
-              <div class="anime-character">
-                <div>
-                  <ion-img
-                    [src]="character.character.images.webp.image_url"
-                  ></ion-img>
-                </div>
-              </div>
-              <div
-                *ngIf="character.voice_actors[0] !== undefined"
-                class="anime-character"
-              >
-                <ion-img
-                  [src]="character.voice_actors[0].person.images.jpg.image_url"
-                ></ion-img>
-              </div>
-            </div>
-          </div>
-        </ion-card-content>
-      </ion-card> -->
 
       <ion-card>
         <ion-card-content>

@@ -11,8 +11,10 @@ const routes: Routes = [
   {
     //! Cambiar
     path: '',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-    // redirectTo: 'anime/32380'
+    // loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    // redirectTo: '/anime/32380',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: 'home',

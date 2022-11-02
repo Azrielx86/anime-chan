@@ -136,8 +136,10 @@ div.stats-info {
 }
 
 div.synopsis {
-  max-height: $top-header-height;
+  max-height: 14.4rem;
   overflow-y: scroll;
+  // transition: max-height 1s;
+  // transition-timing-function: ease-out;
 }
 
 div.genres-container {
@@ -155,23 +157,37 @@ div.genres-container {
   }
 }
 
-div.characters {
-  // display: flex;
-  // flex-direction: row;
-  overflow-x: scroll;
-  height: $character-height;
-  font-size: 16px;
+div.characters-container {
+  overflow: scroll;
 
-  div.character {
-    width: 16rem;
+  div.characters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+    grid-gap: 1rem;
+    grid-auto-flow: column;
+    margin-bottom: 1rem;
 
-    div.anime-character {
+    div.character-data {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: space-evenly;
+    }
+
+    div.name {
+      height: 2rem;
+    }
+
+    div.ch-img-container {
       overflow: hidden;
-      ion-img {
+      width: 5.2rem;
+      height: 8rem;
+      margin: 0.6rem 0;
+      img.ch-img {
+        height: 100%;
         background-size: cover;
         object-fit: cover;
       }
     }
   }
 }
-

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,6 +7,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <h1>Currently airing</h1>
+  <h4>Waiting to <a href="https://github.com/LuckyYam/Marika/pull/5">Marika</a> pull request...</h4>
 
+  <h1>Top Anime</h1>
+  <div>
+    <div *ngFor="let anime of animeList">
+      <h3>{{anime.title}}</h3>
+    </div>
+  </div>
 </ion-content>

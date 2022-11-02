@@ -9,6 +9,7 @@ import {
   IAnimePictures,
   IAnimeStats,
   ITopAnime,
+  ITopManga,
   Manga,
 } from '@shineiichijo/marika';
 
@@ -34,6 +35,10 @@ export class MarikaService {
 
   public async getTopAnime(): Promise<ITopAnime> {
     return await this.animeClient.getTopAnime();
+  }
+
+  public async getTopManga(): Promise<ITopManga> {
+    return await this.mangaClient.getTopManga();
   }
 
   public async getAnime(id: number): Promise<IAnimeFull> {
