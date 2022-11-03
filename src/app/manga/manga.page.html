@@ -1,0 +1,187 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="manga !== undefined">{{ manga.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="manga !== undefined">
+    <div class="header">
+      <div class="center-img">
+        <ion-img
+          class="bg-img"
+          [src]="manga.images.webp.large_image_url"
+        ></ion-img>
+      </div>
+      <div class="header-info">
+        <div class="prev-container">
+          <ion-img
+            class="prev-img"
+            [src]="manga.images.webp.large_image_url"
+          ></ion-img>
+          <div class="status-container">
+            <div
+              class="status"
+              [style.background-color]="manga.status === 'Finished'? '#eb445a' : 
+              manga.status === 'Publishing' ? '#2dd36f' : '#f4f5f8'"
+              [style.color]="manga.status === 'Finished'? '#ffffff' : '#000000'"
+            >
+              {{manga.status}}
+            </div>
+          </div>
+        </div>
+        <div class="prev-info">
+          <h3>{{manga.title}}</h3>
+          <h5 *ngIf="manga.title_japanese">{{manga.title_japanese}}</h5>
+          <h6 *ngIf="manga.chapters !== null">Chapters: {{manga.chapters}}</h6>
+          <div class="genres-container">
+            <div *ngFor="let genre of manga.genres" class="genre-item">
+              <span>{{genre.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <ion-card>
+        <ion-card-content>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Score</h3>
+                  <h4>{{manga.scored !== null ? manga.scored: "NA"}}</h4>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Rank</h3>
+                  <h4>{{manga.rank !== null ? manga.rank : "NA"}}</h4>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="stats-info">
+                  <h3>Popularity</h3>
+                  <h4>
+                    {{manga.popularity !== null ? manga.popularity : "NA"}}
+                  </h4>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Description</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="synopsis" id="synopsis" (click)="expandSynopsis()">
+            {{manga.synopsis}}
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="stats !== undefined">
+        <ion-card-header>
+          <ion-card-title>Stats</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div
+            echarts
+            [options]="statsChartOption"
+            [initOpts]="initOpts"
+            style="height: 400px"
+          ></div>
+          <br />
+          <div *ngIf="stats !== undefined">
+            <p>Watching: {{stats.reading}}</p>
+            <p>Completed: {{stats.completed}}</p>
+            <p>Dropped: {{stats.dropped}}</p>
+            <p>On Hold: {{stats.on_hold}}</p>
+            <p>Plan To Watch: {{stats.plan_to_read}}</p>
+            <p>Total: {{stats.total}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="stats !== undefined">
+        <ion-card-header>
+          <ion-card-title>Scores</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div
+            echarts
+            [options]="scoreChartOption"
+            [initOpts]="initOpts"
+            style="height: 200px"
+          ></div>
+          <br />
+          <div>
+            <p *ngIf="stats.total !== undefined">Total: {{stats.total}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- ! Waiting for Marika fix -->
+      <!-- <ion-card>
+        <ion-card-header>
+          <ion-card-title>Characters</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="characters-container">
+            <div class="characters-list">
+              <div *ngFor="let ch of characters.data" class="character-data">
+                <div>
+                  <div class="ch-img-container">
+                    <img
+                      class="ch-img"
+                      [src]="ch.character.images.webp.image_url"
+                      [alt]="ch.character.name"
+                    />
+                  </div>
+                  <div class="name">
+                    <div class="name-container">
+                      <p>{{ch.character.name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card> -->
+
+      <ion-card>
+        <ion-card-content>
+          <div *ngIf="manga.authors !== undefined">
+            <p>Authors</p>
+            <ul>
+              <li *ngFor="let author of manga.authors">{{author.name}}</li>
+            </ul>
+          </div>
+          <div *ngIf="manga.demographics !== undefined">
+            <p>Demographics</p>
+            <ul>
+              <li *ngFor="let dem of manga.demographics">{{dem.name}}</li>
+            </ul>
+          </div>
+          <div *ngIf="manga.serializations !== undefined">
+            <p>Serializations</p>
+            <ul>
+              <li *ngFor="let ser of manga.serializations">{{ser.name}}</li>
+            </ul>
+          </div>
+          <div *ngIf="manga.published !== undefined">
+            <p>Publishing: {{manga.published.string}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

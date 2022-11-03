@@ -2,31 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import {
-  IAnimeCharacters,
-  IAnimeEpisodes,
-  IAnimeFull,
-  IAnimePictures,
-  IAnimeStats,
+  IManga,
+  IMangaCharacters,
+  IMangaPictures,
+  IMangaStats,
 } from '@shineiichijo/marika';
 import { EChartsOption } from 'echarts';
 import { MarikaService } from '../api/marika.service';
 
 @Component({
-  selector: 'app-anime',
-  templateUrl: './anime.page.html',
-  styleUrls: ['./anime.page.scss'],
+  selector: 'app-manga',
+  templateUrl: './manga.page.html',
+  styleUrls: ['./manga.page.scss'],
 })
-export class AnimePage implements OnInit {
-  public anime: IAnimeFull;
-  public characters: IAnimeCharacters;
-  public pictures: IAnimePictures;
-  public stats: IAnimeStats;
-  public episodes: IAnimeEpisodes;
+export class MangaPage implements OnInit {
+  public manga: IManga;
+  public characters: IMangaCharacters;
+  public pictures: IMangaPictures;
+  public stats: IMangaStats;
   public windowWidth = window.innerWidth;
   public statsChartOption: EChartsOption;
   public scoreChartOption: EChartsOption;
   public initOpts: any;
-  private animeId: number;
+  private mangaId: number;
   private apiLoaded = false;
   private synopsisExpanded = false;
 
@@ -45,14 +43,13 @@ export class AnimePage implements OnInit {
     }
 
     try {
-      this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-      this.anime = await this.marikaService.getAnime(this.animeId);
-      this.stats = await this.marikaService.getAnimeStats(this.animeId);
-      this.characters = await this.marikaService.getAnimeCharacters(
-        this.animeId
-      );
-      // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
-      // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
+      this.mangaId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+      this.manga = await this.marikaService.getManga(this.mangaId);
+      this.stats = await this.marikaService.getMangaStats(this.mangaId);
+      // ! Waiting for Marika fix
+      // this.characters = await this.marikaService.getMangaCharacters(
+      //   this.mangaId
+      // );
     } catch (error) {
       const alert = await this.alertController.create({
         header: 'Error',
@@ -65,18 +62,18 @@ export class AnimePage implements OnInit {
 
     const xData = [
       { value: this.stats.completed, name: 'Completed' },
-      { value: this.stats.watching, name: 'Watching' },
+      { value: this.stats.reading, name: 'Reading' },
       { value: this.stats.on_hold, name: 'On Hold' },
       { value: this.stats.dropped, name: 'Dropped' },
-      { value: this.stats.plan_to_watch, name: 'Plan to Watch' },
+      { value: this.stats.plan_to_read, name: 'Plan to Read' },
     ];
 
     const yData = [
       'Completed',
-      'Watching',
+      'Reading',
       'On Hold',
       'Dropped',
-      'Plan to Watch',
+      'Plan to Read',
     ];
 
     if (this.stats !== undefined) {
@@ -164,29 +161,11 @@ export class AnimePage implements OnInit {
       ],
     };
 
-    console.log(this.anime);
+    console.log(this.manga);
     console.log(this.characters);
     console.log(this.pictures);
-    console.log(this.episodes);
     console.log(this.stats);
   }
-
-  /**
-   * TODO: Remove later or use to other action.
-   *
-   * @param characterVA Character voice actor
-   */
-  showVoiceActors = async (characterVA) => {
-    const names = characterVA.map((va) => `${va.person.name} (${va.language})`);
-
-    const alert = await this.alertController.create({
-      header: 'Voice Actors',
-      message: `${names}`,
-      buttons: ['Close'],
-    });
-
-    await alert.present();
-  };
 
   expandSynopsis = async () => {
     document.getElementById('synopsis').style.maxHeight = this.synopsisExpanded

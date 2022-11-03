@@ -24,3 +24,197 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+$top-header-height: 12.4em;
+$character-height: 25em;
+$genre-color-item: #6a62fa;
+
+ion-header {
+  text-overflow: ellipsis;
+}
+
+div.header {
+  width: 100%;
+  height: $top-header-height;
+  margin: auto;
+  overflow: hidden;
+  z-index: 0;
+  color: white;
+
+  div.center-img {
+    position: absolute;
+    z-index: -20;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    object-fit: cover;
+    background-size: cover;
+  }
+
+  ion-img.bg-img {
+    width: 100%;
+    background-size: cover;
+    object-fit: cover;
+    filter: blur(15px);
+  }
+}
+
+div.header-info {
+  display: grid;
+  grid-template-columns: 8em auto;
+  column-gap: 0.1em;
+  height: $top-header-height;
+  width: inherit;
+  align-items: stretch;
+  align-content: stretch;
+
+  div.prev-info {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+
+    h3 {
+      font-size: larger;
+      font-weight: bold;
+      margin: 0.3em;
+      bottom: 0;
+      text-shadow: 0em 0em 0.3em rgba(0, 0, 0, 0.8);
+      max-height: 3.6em;
+      line-height: 1.2em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    h5 {
+      font-size: smaller;
+      text-shadow: 0em 0em 0.3em rgba(0, 0, 0, 0.8);
+      padding: 0;
+      margin: 0.1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 1.2em;
+      word-wrap: break-word;
+    }
+
+    h6 {
+      font-size: medium;
+      text-shadow: 0em 0em 0.3em rgba(0, 0, 0, 0.8);
+      padding: 0;
+      margin: 0.1em;
+    }
+
+    div.sub-info {
+      display: grid;
+      grid-template-rows: auto auto;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  div.prev-container {
+    height: 90%;
+    width: 90%;
+    margin: auto;
+    border-radius: 0.5em;
+    overflow: hidden;
+    box-shadow: 0em 0em 0.4em 0.1em rgba(0, 0, 0, 0.4);
+  }
+
+  ion-img.prev-img {
+    height: 100%;
+    background-size: cover;
+    object-fit: cover;
+  }
+
+  div.status-container {
+    position: relative;
+    div.status {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: small;
+      color: black;
+      text-align: center;
+      padding: 0.5em 0;
+      font-weight: bolder;
+    }
+  }
+}
+
+div.stats-info {
+  text-align: center;
+
+  h3 {
+    font-weight: bolder;
+    font-size: large;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: medium;
+  }
+}
+
+div.synopsis {
+  max-height: 14.4rem;
+  overflow-y: scroll;
+  // transition: max-height 1s;
+  // transition-timing-function: ease-out;
+}
+
+div.genres-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  div.genre-item {
+    font-weight: bold;
+    font-size: small;
+    display: inline;
+    background-color: $genre-color-item;
+    padding: 0.25em;
+    border-radius: 0.3em;
+    margin: 0.2em;
+  }
+}
+
+div.characters-container {
+  overflow: scroll;
+
+  div.characters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+    grid-gap: 1rem;
+    grid-auto-flow: column;
+    margin-bottom: 1rem;
+
+    div.character-data {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: space-evenly;
+    }
+
+    div.name {
+      height: 2rem;
+    }
+
+    div.ch-img-container {
+      overflow: hidden;
+      width: 5.2rem;
+      height: 8rem;
+      margin: 0.6rem 0;
+      img.ch-img {
+        height: 100%;
+        background-size: cover;
+        object-fit: cover;
+      }
+    }
+  }
+}

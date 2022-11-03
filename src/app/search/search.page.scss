@@ -1,0 +1,36 @@
+$genre-color-item: #6a62fa;
+
+ion-img {
+  border-radius: 15px;
+  object-fit: cover;
+  height: 15em;
+}
+
+ion-badge {
+  display: inline;
+}
+
+ion-spinner {
+  display: block;
+  margin: auto;
+}
+
+ion-card-header {
+  cursor: pointer;
+}
+
+div.genres-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  div.genre-item {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: small;
+    display: inline;
+    background-color: $genre-color-item;
+    padding: 0.25em;
+    border-radius: 0.3em;
+    margin: 0.2em;
+  }
+}

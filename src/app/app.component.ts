@@ -8,9 +8,11 @@ export class AppComponent implements OnInit {
   apiLoaded = false;
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Anime', url: '/search-anime', icon: 'albums' },
+    // { title: 'Anime', url: '/search-anime', icon: 'albums' },
+    { title: 'Anime', url: '/search/anime', icon: 'albums' },
     { title: 'Characters', url: '/characters', icon: 'people' },
-    { title: 'Manga', url: '/manga', icon: 'book' },
+    // { title: 'Manga', url: '/manga', icon: 'book' },
+    { title: 'Manga', url: '/search/manga', icon: 'book' },
     { title: 'Neko :3', url: '/neko', icon: 'add' },
     // { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
     // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },

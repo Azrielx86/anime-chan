@@ -8,6 +8,9 @@ import {
   IAnimeFull,
   IAnimePictures,
   IAnimeStats,
+  IManga,
+  IMangaCharacters,
+  IMangaStats,
   ITopAnime,
   ITopManga,
   Manga,
@@ -21,7 +24,7 @@ export class MarikaService {
   characterClient = new Character();
   mangaClient = new Manga();
 
-  constructor() { }
+  constructor() {}
 
   public async searchAnime(query: string): Promise<IAnime[]> {
     const animeList = await this.animeClient
@@ -59,5 +62,27 @@ export class MarikaService {
 
   public async getAnimePictures(id: number): Promise<IAnimePictures> {
     return await this.animeClient.getAnimePictures(id);
+  }
+
+  public async searchManga(query: string) {
+    const mangaList = await this.mangaClient
+      .searchManga(query, { sort: 'desc', sfw: true })
+      .then((result) => result.data)
+      .catch();
+    console.log(mangaList);
+
+    return mangaList;
+  }
+
+  public async getManga(id: number): Promise<IManga> {
+    return await this.mangaClient.getMangaById(id);
+  }
+
+  public async getMangaCharacters(id: number): Promise<IMangaCharacters> {
+    return await this.mangaClient.getMangaCharacters(id);
+  }
+
+  public async getMangaStats(id: number): Promise<IMangaStats> {
+    return await this.mangaClient.getMangaStats(id);
   }
 }
