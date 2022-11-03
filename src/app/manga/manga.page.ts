@@ -20,7 +20,6 @@ export class MangaPage implements OnInit {
   public characters: IMangaCharacters;
   public pictures: IMangaPictures;
   public stats: IMangaStats;
-  public windowWidth = window.innerWidth;
   public statsChartOption: EChartsOption;
   public scoreChartOption: EChartsOption;
   public initOpts: any;
@@ -83,7 +82,7 @@ export class MangaPage implements OnInit {
 
       this.statsChartOption = {
         title: {
-          text: 'Anime stats',
+          text: 'Manga stats',
           subtext: 'Click for more info!',
           textStyle: {
             color: '#ffffff',
@@ -117,7 +116,7 @@ export class MangaPage implements OnInit {
 
     this.scoreChartOption = {
       title: {
-        text: 'Anime scores',
+        text: 'Manga scores',
         subtext: 'Click for more info!',
         textStyle: {
           color: '#ffffff',

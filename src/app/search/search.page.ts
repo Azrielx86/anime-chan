@@ -21,8 +21,6 @@ export class SearchPage implements OnInit {
     this.searchType = this.activatedRoute.snapshot.paramMap.get(
       'type'
     ) as TSearch;
-
-    console.log(this.searchType);
   }
 
   ngOnInit() {}
@@ -37,9 +35,7 @@ export class SearchPage implements OnInit {
     if (this.searchType === 'anime') {
       this.searchResults = await this.marikaService.searchAnime(query);
     } else if (this.searchType === 'manga') {
-      console.log('Searching');
       this.searchResults = await this.marikaService.searchManga(query);
-      console.log(this.searchResults);
     }
   }
 
