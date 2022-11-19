@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
     { title: 'Anime', url: '/search/anime', icon: 'albums' },
     { title: 'Manga', url: '/search/manga', icon: 'book' },
     { title: 'Characters', url: '/characters', icon: 'people' },
-    { title: 'Neko :3', url: '/neko', icon: 'add' },
+    { title: 'Neko :3', url: '/nekos', icon: 'add' },
   ];
   constructor() {}
 

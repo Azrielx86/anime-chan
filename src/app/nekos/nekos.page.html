@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Nekos Best</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div>
+      <ion-item>
+        <ion-label>Categories</ion-label>
+        <ion-select value="Neko" multiple="false" placeholder="Select Category">
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="top-buttons">
+      <ion-button (click)="reloadImage()">Random! :3</ion-button>
+      <ion-button (click)="saveImage()">Save image :3</ion-button>
+    </div>
+  </div>
+  <div>
+    <div *ngIf="currentImage !== undefined" class="img-container">
+      <ion-img [src]="currentImage.url"></ion-img>
+      <div>
+        <p>Artist: {{currentImage.artist_name}}</p>
+        <p>URL: {{currentImage.url}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,17 @@
+div.top-buttons {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  ion-button {
+    flex-grow: 1;
+  }
+}
+
+div.img-container {
+  margin: 1em;
+  border-radius: 5px;
+  overflow: hidden;
+}

@@ -40,6 +40,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./manga/manga.module').then((m) => m.MangaPageModule),
   },
+  {
+    path: 'nekos',
+    loadChildren: () => import('./nekos/nekos.module').then( m => m.NekosPageModule)
+  },
 ];
 
 @NgModule({
