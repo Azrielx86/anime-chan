@@ -22,7 +22,7 @@
     "@angular/youtube-player": "^14.2.4",
     "@capacitor/android": "^4.3.0",
     "@capacitor/app": "4.0.1",
-    "@capacitor/core": "4.3.0",
+    "@capacitor/core": "4.6.1",
     "@capacitor/filesystem": "^4.1.4",
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
