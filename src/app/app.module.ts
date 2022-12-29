@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -8,6 +9,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx'
+import { File } from '@awesome-cordova-plugins/file/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +19,10 @@ import { NgxEchartsModule } from 'ngx-echarts';
     IonicModule.forRoot(),
     AppRoutingModule,
     YouTubePlayerModule,
+    HttpClientModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, HTTP, File],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
