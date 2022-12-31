@@ -128,7 +128,7 @@
             <ion-item>
               <ion-label>Select Language</ion-label>
               <ion-select interface="popover" placeholder="Select Language" [compareWith]="langList"
-                value="{{langList[0]}}" (ionChange)="onCharacterLangSelection($event)">
+                value="{{langList[langList.includes('Japanese') ? langList.indexOf('Japanese') : 0]}}" (ionChange)="onCharacterLangSelection($event)">
                 <ion-select-option *ngFor="let l of langList" value="{{l}}">{{l}}</ion-select-option>
               </ion-select>
             </ion-item>

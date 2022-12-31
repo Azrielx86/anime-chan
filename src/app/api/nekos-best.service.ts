@@ -42,7 +42,7 @@ export class NekosBestService {
 
           const toast = await this.toastController.create({
             message: 'Image downloaded',
-            position: 'top',
+            position: 'bottom',
             duration: 1500,
           });
           await toast.present();

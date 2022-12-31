@@ -3,7 +3,6 @@ import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import {
-  IAnimeCharacters,
   IAnimeEpisodes,
   IAnimeFull,
   IAnimePictures,
@@ -19,7 +18,6 @@ import { MarikaService } from '../api/marika.service';
 })
 export class AnimePage implements OnInit {
   public anime: IAnimeFull;
-  // public charactersData: IAnimeCharacters;
   public characters: AnimeCharacter[];
   public charactersFiltered: any[];
   public currentLang: string;
@@ -53,9 +51,6 @@ export class AnimePage implements OnInit {
       this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.anime = await this.marikaService.getAnime(this.animeId);
       this.stats = await this.marikaService.getAnimeStats(this.animeId);
-      // this.charactersData = await this.marikaService.getAnimeCharacters(
-      // this.animeId
-      // );
 
       this.characters = (
         await this.marikaService.getAnimeCharacters(this.animeId)
@@ -68,24 +63,15 @@ export class AnimePage implements OnInit {
         return character;
       });
 
-      // this.characters = this.charactersData.data.map((c) => {
-      //   const va = c.voice_actors.map((v) => {
-      //     return v as VoiceActor;
-      //   });
-      //   const character = c as AnimeCharacter;
-      //   character.voice_actors = va;
-      //   return character;
-      // });
-
       this.langList = [
         ...this.characters[0].voice_actors.map((m) => m.language),
       ];
 
-      console.log(this.langList);
-      this.currentLang = this.langList[0];
-      this.onCharacterLangSelection(this.currentLang);
+      this.currentLang = this.langList.includes('Japanese')
+        ? 'Japanese'
+        : this.langList[0];
 
-      // this.currentLang = this.charactersData.data[0].voice_actors[0].language;
+      this.onCharacterLangSelection(this.currentLang);
 
       // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
       // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
@@ -201,29 +187,11 @@ export class AnimePage implements OnInit {
     };
 
     console.log(this.anime);
-    // console.log(this.charactersData);
     console.log(this.characters);
     console.log(this.pictures);
     console.log(this.episodes);
     console.log(this.stats);
   }
-
-  /**
-   * TODO: Remove later or use to other action.
-   *
-   * @param characterVA Character voice actor
-   */
-  // showVoiceActorsClick = async (characterVA) => {
-  //   const names = characterVA.map((va) => `${va.person.name} (${va.language})`);
-
-  //   const alert = await this.alertController.create({
-  //     header: 'Voice Actors',
-  //     message: `${names}`,
-  //     buttons: ['Close'],
-  //   });
-
-  //   await alert.present();
-  // };
 
   expandSynopsis = async () => {
     document.getElementById('synopsis').style.maxHeight = this.synopsisExpanded
