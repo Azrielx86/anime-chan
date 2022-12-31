@@ -124,10 +124,19 @@
           <ion-card-title>Characters</ion-card-title>
         </ion-card-header>
         <ion-card-content>
+          <div>
+            <ion-item>
+              <ion-label>Select Language</ion-label>
+              <ion-select interface="popover" placeholder="Select Language" [compareWith]="langList"
+                value="{{langList[0]}}" (ionChange)="onCharacterLangSelection($event)">
+                <ion-select-option *ngFor="let l of langList" value="{{l}}">{{l}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
           <div class="characters-container">
             <div class="characters-list">
-              <div *ngFor="let ch of characters.data" class="character-data">
-                <div (click)="showVoiceActors(ch.voice_actors)">
+              <div *ngFor="let ch of charactersFiltered" class="character-data">
+                <div>
                   <div class="ch-img-container">
                     <img class="ch-img" [src]="ch.character.images.webp.image_url" [alt]="ch.character.name">
                   </div>
@@ -139,12 +148,12 @@
                 </div>
                 <div>
                   <div class="ch-img-container">
-                    <img class="ch-img" *ngIf="ch.voice_actors[0] !== undefined"
-                      [src]="ch.voice_actors[0].person.images.jpg.image_url" [alt]="ch.voice_actors[0].person.name">
+                    <img class="ch-img" *ngIf="getVoiceActor(ch).person !== undefined"
+                      [src]="getVoiceActor(ch).person.images.jpg.image_url">
                   </div>
                   <div class="name">
                     <div class="name-container">
-                      <p *ngIf="ch.voice_actors[0] !== undefined">{{ch.voice_actors[0].person.name}}</p>
+                      <p *ngIf="getVoiceActor(ch).person !== undefined">{{getVoiceActor(ch).person.name}}</p>
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import {
@@ -18,7 +19,11 @@ import { MarikaService } from '../api/marika.service';
 })
 export class AnimePage implements OnInit {
   public anime: IAnimeFull;
-  public characters: IAnimeCharacters;
+  // public charactersData: IAnimeCharacters;
+  public characters: AnimeCharacter[];
+  public charactersFiltered: any[];
+  public currentLang: string;
+  public langList: string[];
   public pictures: IAnimePictures;
   public stats: IAnimeStats;
   public episodes: IAnimeEpisodes;
@@ -48,9 +53,40 @@ export class AnimePage implements OnInit {
       this.animeId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
       this.anime = await this.marikaService.getAnime(this.animeId);
       this.stats = await this.marikaService.getAnimeStats(this.animeId);
-      this.characters = await this.marikaService.getAnimeCharacters(
-        this.animeId
-      );
+      // this.charactersData = await this.marikaService.getAnimeCharacters(
+      // this.animeId
+      // );
+
+      this.characters = (
+        await this.marikaService.getAnimeCharacters(this.animeId)
+      ).data.map((c) => {
+        const va = c.voice_actors.map((v) => {
+          return v as VoiceActor;
+        });
+        const character = c as AnimeCharacter;
+        character.voice_actors = va;
+        return character;
+      });
+
+      // this.characters = this.charactersData.data.map((c) => {
+      //   const va = c.voice_actors.map((v) => {
+      //     return v as VoiceActor;
+      //   });
+      //   const character = c as AnimeCharacter;
+      //   character.voice_actors = va;
+      //   return character;
+      // });
+
+      this.langList = [
+        ...this.characters[0].voice_actors.map((m) => m.language),
+      ];
+
+      console.log(this.langList);
+      this.currentLang = this.langList[0];
+      this.onCharacterLangSelection(this.currentLang);
+
+      // this.currentLang = this.charactersData.data[0].voice_actors[0].language;
+
       // this.pictures = await this.marikaService.getAnimePictures(this.animeId);
       // this.episodes = await this.marikaService.getAnimeEpisodes(this.animeId);
     } catch (error) {
@@ -165,6 +201,7 @@ export class AnimePage implements OnInit {
     };
 
     console.log(this.anime);
+    // console.log(this.charactersData);
     console.log(this.characters);
     console.log(this.pictures);
     console.log(this.episodes);
@@ -176,17 +213,17 @@ export class AnimePage implements OnInit {
    *
    * @param characterVA Character voice actor
    */
-  showVoiceActors = async (characterVA) => {
-    const names = characterVA.map((va) => `${va.person.name} (${va.language})`);
+  // showVoiceActorsClick = async (characterVA) => {
+  //   const names = characterVA.map((va) => `${va.person.name} (${va.language})`);
 
-    const alert = await this.alertController.create({
-      header: 'Voice Actors',
-      message: `${names}`,
-      buttons: ['Close'],
-    });
+  //   const alert = await this.alertController.create({
+  //     header: 'Voice Actors',
+  //     message: `${names}`,
+  //     buttons: ['Close'],
+  //   });
 
-    await alert.present();
-  };
+  //   await alert.present();
+  // };
 
   expandSynopsis = async () => {
     document.getElementById('synopsis').style.maxHeight = this.synopsisExpanded
@@ -194,4 +231,52 @@ export class AnimePage implements OnInit {
       : '100%';
     this.synopsisExpanded = !this.synopsisExpanded;
   };
+
+  getVoiceActor = (character: AnimeCharacter): VoiceActor => {
+    return character.voice_actors.find(
+      (v) => v.language.toLowerCase() == this.currentLang.toLowerCase()
+    );
+  };
+
+  onCharacterLangSelection = (e) => {
+    const lang = e.detail?.value ?? e;
+    this.currentLang = lang;
+    this.charactersFiltered = this.characters.filter((c) =>
+      c.voice_actors.find(
+        (v) => v.language.toLowerCase() == this.currentLang.toLowerCase()
+      )
+    );
+  };
+}
+
+class AnimeCharacter {
+  character: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+      };
+      webp: {
+        image_url: string;
+        small_image_url: string;
+      };
+    };
+    name: string;
+  };
+  role: string;
+  voice_actors: VoiceActor[];
+}
+class VoiceActor {
+  person: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+      };
+    };
+    name: string;
+  };
+  language: string;
 }
