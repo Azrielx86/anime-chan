@@ -15,3 +15,29 @@ div.img-container {
   border-radius: 5px;
   overflow: hidden;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+div.footer_data {
+  border-radius: 0.5rem;
+  padding: 2px;
+  margin: 0.5rem;
+  background-color: #1a1a1a;
+  justify-content: center;
+}
+
+div.footer_data > p {
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+}
+
+a.nk_link {
+  font-weight: bold;
+  text-decoration: none;
+  color: #6a64ff;
+}

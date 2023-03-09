@@ -11,6 +11,18 @@
   <h1>Currently airing</h1>
   <h4>Waiting to <a href="https://github.com/LuckyYam/Marika/pull/5">Marika</a> pull request...</h4>
 
+  <h1>Airing Anime</h1>
+  <div *ngIf="airingAnime !== undefined">
+    <div *ngFor="let anime of airingAnime.data">
+      <h3>{{anime.title}}</h3>
+      <div routerLink="/anime/{{anime.mal_id}}">
+        <ion-img [src]="anime.images.jpg.image_url" style="height: 250px;"></ion-img>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
   <h1>Top Anime</h1>
   <div>
     <div *ngFor="let anime of animeList">

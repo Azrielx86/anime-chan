@@ -125,7 +125,7 @@
         </ion-card-header>
         <ion-card-content>
           <div>
-            <ion-item>
+            <ion-item *ngIf="langList.length > 1">
               <ion-label>Select Language</ion-label>
               <ion-select interface="popover" placeholder="Select Language" [compareWith]="langList"
                 value="{{langList[langList.includes('Japanese') ? langList.indexOf('Japanese') : 0]}}" (ionChange)="onCharacterLangSelection($event)">

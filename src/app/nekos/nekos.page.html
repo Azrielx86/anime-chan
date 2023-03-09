@@ -24,10 +24,17 @@
   <div>
     <div *ngIf="currentImage !== undefined" class="img-container">
       <ion-img [src]="currentImage.url"></ion-img>
-      <div>
-        <p>Artist: {{currentImage.artist_name}}</p>
-        <p>URL: {{currentImage.url}}</p>
-      </div>
     </div>
+    <footer>
+      <div *ngIf="currentImage !== undefined" class="footer_data">
+        <p>
+          Artist: <a class="nk_link" [href]="currentImage.artist_href">{{currentImage.artist_name}}</a>
+        </p>
+        <p>
+          <a class="nk_link" [href]="currentImage.source_url">Link to source</a>
+        </p>
+        <!-- <p>URL: {{currentImage.url}}</p> -->
+      </div>
+    </footer>
   </div>
 </ion-content>
