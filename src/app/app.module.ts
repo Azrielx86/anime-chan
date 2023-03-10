@@ -9,8 +9,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { HTTP } from '@awesome-cordova-plugins/http/ngx'
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
+import { AnimeCardComponent } from './components/anime-card/anime-card.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,8 +23,13 @@ import { File } from '@awesome-cordova-plugins/file/ngx';
     YouTubePlayerModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
+    ComponentsModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, HTTP, File],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    HTTP,
+    File,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

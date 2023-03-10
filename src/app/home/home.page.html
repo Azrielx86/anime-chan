@@ -9,24 +9,25 @@
 
 <ion-content [fullscreen]="true">
   <h1>Currently airing</h1>
-  <h4>Waiting to <a href="https://github.com/LuckyYam/Marika/pull/5">Marika</a> pull request...</h4>
+  <!-- <h4>Waiting to <a href="https://github.com/LuckyYam/Marika/pull/5">Marika</a> pull request...</h4> -->
 
-  <h1>Airing Anime</h1>
-  <div *ngIf="airingAnime !== undefined">
-    <div *ngFor="let anime of airingAnime.data">
-      <h3>{{anime.title}}</h3>
-      <div routerLink="/anime/{{anime.mal_id}}">
-        <ion-img [src]="anime.images.jpg.image_url" style="height: 250px;"></ion-img>
+  <!-- <h1>Airing Anime</h1> -->
+  <app-anime-carousel *ngIf="airingAnime !== undefined" [animeList]="airingAnime.data" ></app-anime-carousel>
+  <!-- <div *ngIf="airingAnime !== undefined">
+    <div class="carousel">
+      <div class="carousel-container">
+        <app-anime-card *ngFor="let anime of airingAnime.data" [anime]="anime" class="carousel-item"></app-anime-card>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <hr />
 
   <h1>Top Anime</h1>
-  <div>
+  <app-anime-carousel *ngIf="animeList !== undefined" [animeList]="animeList"></app-anime-carousel>
+  <!-- <div>
     <div *ngFor="let anime of animeList">
       <h3>{{anime.title}}</h3>
     </div>
-  </div>
+  </div> -->
 </ion-content>
