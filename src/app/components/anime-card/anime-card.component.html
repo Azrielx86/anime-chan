@@ -1,7 +1,6 @@
 <div class="main-card">
   <!-- <h3>{{anime.title}}</h3> -->
   <div routerLink="/anime/{{anime.mal_id}}">
-    <ion-img [src]="anime.images.jpg.image_url"
-    class="image-container"></ion-img>
+    <img [src]="anime.images.jpg.image_url" class="image-container" preload/>
   </div>
 </div>

@@ -8,8 +8,9 @@ import { IAnime } from '@shineiichijo/marika';
 })
 export class AnimeCardComponent implements OnInit {
   @Input() anime: IAnime;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    
+  }
 }

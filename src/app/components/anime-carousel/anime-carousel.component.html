@@ -1,9 +1,9 @@
-<div>
-  <div *ngIf="animeList !== undefined">
-    <div class="carousel">
-      <div class="carousel-container">
-        <app-anime-card *ngFor="let anime of animeList" [anime]="anime" class="carousel-item"></app-anime-card>
-      </div>
-    </div>
+<div class="main-container">
+  <div *ngIf="animeList !== undefined" id="sliderContainer">
+    <swiper [config]="swpConfig">
+      <ng-template swiperSlide *ngFor="let anime of animeList">
+        <app-anime-card [anime]="anime"></app-anime-card>
+      </ng-template>
+    </swiper>
   </div>
 </div>

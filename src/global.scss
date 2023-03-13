@@ -25,6 +25,9 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import 'swiper/scss';
+@import '@ionic/angular/css/ionic-swiper';
+
 $top-header-height: 12.4em;
 $character-height: 25em;
 $genre-color-item: #6a62fa;

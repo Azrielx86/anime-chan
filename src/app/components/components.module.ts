@@ -4,15 +4,15 @@ import { AnimeCardComponent } from './anime-card/anime-card.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 import { AnimeCarouselComponent } from './anime-carousel/anime-carousel.component';
-
-
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [AnimeCardComponent, AnimeCarouselComponent],
   imports: [
     CommonModule,
     IonicModule,
-    RouterLink
+    RouterLink,
+    SwiperModule
   ],
   exports: [AnimeCardComponent, AnimeCarouselComponent]
 })
