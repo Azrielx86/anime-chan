@@ -13,7 +13,10 @@ export class AnimeCarouselComponent implements OnInit {
 
   swpConfig: SwiperOptions = {
     effect: 'cards',
-    autoplay: true,
+    autoplay: {
+      delay: 2000,
+    },
+    loop: true,
     centeredSlides: true,
     slidesPerView: 1.8,
     spaceBetween: 10,
